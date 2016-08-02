@@ -12,13 +12,13 @@ import javax.persistence.Entity;
 @Entity
 public class Student extends BaseEntity {
     @Column(name = "ROLL", nullable = false)
-    private Integer roll;
+    private String roll;
     @Column(name = "NAME", nullable = false)
     private String name;
 
     public Student() {}
 
-    public Student(Integer roll) {
-        this.roll = roll;
+    public Student( String _class, String branch, Integer roll) {
+        this.roll = String.format("%s-%s-%s", _class, branch, roll);
     }
 }

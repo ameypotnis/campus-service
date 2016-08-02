@@ -9,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 
 public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
-    public Attendance findByCode(String code);
+    Attendance findByCode(String code);
 }
