@@ -10,28 +10,20 @@ import java.util.List;
  */
 @Entity
 @Data
-public class Attendance {
-    @Column(name="ID")
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private long id;
-    @Column(name = "DATE", nullable = false)
-    private String date;
-    @Column(name = "BATCH", nullable = false)
-    private String batch;
+public class Attendance extends BaseEntity {
+    @Column(name = "CODE", nullable = false)
+    private String code;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name="ATTENDANCE_STUDENT",
-            joinColumns=@JoinColumn(name="ATTENDANCE_ID", referencedColumnName="ID"),
-            inverseJoinColumns=@JoinColumn(name="STUDENT_ID", referencedColumnName="ID"))
+            name = "ATTENDANCE_STUDENT",
+            joinColumns = @JoinColumn(name = "ATTENDANCE_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID"))
     private List<Student> students;
 
-    public Attendance() {
-    }
+    public Attendance() {}
 
-    public Attendance(String date, String batch) {
-        this.date = date;
-        this.batch = batch;
+    public Attendance(String date, String _class, String branch) {
+        this.code = String.format("%s-%s-%s", date, _class, branch);
     }
 }

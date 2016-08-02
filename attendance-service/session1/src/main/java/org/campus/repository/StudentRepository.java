@@ -1,4 +1,4 @@
-package org.campus;
+package org.campus.repository;
 
 import org.campus.domain.Student;
 import org.springframework.data.repository.CrudRepository;
