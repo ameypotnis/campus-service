@@ -3,6 +3,10 @@ package org.campus.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by amey on 2/8/16.
@@ -17,6 +21,16 @@ public class BaseEntity {
 
     public boolean isNew() {
         return this.id == null;
+    }
+
+    public static Date toDate(String date) {
+        DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        try {
+            return formatter.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

@@ -3,6 +3,8 @@ package org.campus.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,8 +13,14 @@ import java.util.List;
 @Entity
 @Data
 public class Attendance extends BaseEntity {
-    @Column(name = "CODE", nullable = false)
-    private String code;
+    @Column(name = "ATTENDANCE_DATE", nullable = false)
+    private Date date;
+
+    @Column(name = "CLASS", nullable = false)
+    private String standard;
+
+    @Column(name = "BRANCH", nullable = false)
+    private String branch;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -23,7 +31,16 @@ public class Attendance extends BaseEntity {
 
     public Attendance() {}
 
-    public Attendance(String date, String _class, String branch) {
-        this.code = String.format("%s-%s-%s", date, _class, branch);
+    public Attendance(String date, String standard, String branch) {
+        this.date = toDate(date);
+        this.standard = standard;
+        this.branch = branch;
+    }
+
+    public void addStudent(Student student) {
+        if (students == null) {
+            students = new ArrayList<>();
+        }
+        students.add(student);
     }
 }

@@ -6,12 +6,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.campus.domain.BaseEntity.toDate;
 
 /**
  * Created by amey on 2/8/16.
@@ -26,29 +26,32 @@ public class AttendanceRepositoryTest {
     private StudentRepository studentRepository;
 
     @Test
-    public void testSaveAttendance() {
+    public void testSaveAndSearchAttendance() {
         //given
-        Student indrajeet = new Student("BE", "CS", 1);
-        indrajeet.setName("Indrajeet");
+        Student indrajeet = new Student("Indrajeet", "BE", "CS", 1);
         studentRepository.save(indrajeet);
-
-        Attendance attendance = new Attendance("20160726", "BE", "CS");
-        attendance.setStudents(new ArrayList<Student>() {{
-            add(indrajeet);
-        }});
+        Student avdhut = new Student("Avdhut", "BE", "CS", 2);
+        studentRepository.save(avdhut);
 
         //when
+        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        attendance.addStudent(indrajeet);
+        attendance.addStudent(avdhut);
         repository.save(attendance);
 
         //then
-        Attendance actual = repository.findByCode("20160726-BE-CS");
+        Attendance actual = repository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS");
         assertThat(actual.getId()).isEqualTo(1L);
-        assertThat(actual.getCode()).isEqualTo("20160726-BE-CS");
-        assertThat(actual.getStudents().size()).isEqualTo(1);
-        assertThat(actual.getStudents().get(0).getName()).isEqualTo("Indrajeet");
+        assertThat(actual.getDate()).isEqualTo(toDate("20160726"));
+        assertThat(actual.getStandard()).isEqualTo("BE");
+        assertThat(actual.getBranch()).isEqualTo("CS");
 
-        Student student = studentRepository.findByRoll("BE-CS-1");
-        assertThat(student.getName()).isEqualTo("Indrajeet");
+        assertThat(actual.getStudents().size()).isEqualTo(2);
+        assertThat(actual.getStudents().get(0).getName()).isEqualTo("Indrajeet");
+        assertThat(actual.getStudents().get(1).getName()).isEqualTo("Avdhut");
+
+        assertThat(studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS").getName()).isEqualTo("Indrajeet");
+        assertThat(studentRepository.findByRollAndStandardAndBranch(2, "BE", "CS").getName()).isEqualTo("Avdhut");
     }
 
 }
