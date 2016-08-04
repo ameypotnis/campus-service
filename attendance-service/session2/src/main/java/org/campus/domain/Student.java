@@ -24,6 +24,12 @@ public class Student extends BaseEntity {
 
     public Student() {}
 
+    public Student(String standard, String branch, Integer roll) {
+        this.standard = standard;
+        this.branch = branch;
+        this.roll = roll;
+    }
+
     public Student(String name, String standard, String branch, Integer roll) {
         this.name = name;
         this.standard = standard;

@@ -24,16 +24,18 @@ public class BaseEntity {
     }
 
     public static Date toDate(String date) {
+        if (date == null) return null;
         DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         try {
             return formatter.parse(date);
         } catch (ParseException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     public static String toString(Date date) {
+        if (date == null) return null;
         DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         return formatter.format(date);
     }
