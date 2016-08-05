@@ -15,8 +15,8 @@ class BadRequestException extends RuntimeException {
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 class ResourceNotFoundException extends RuntimeException {
-    ResourceNotFoundException() {
-        super("resource not found");
+    ResourceNotFoundException(Object resource, String className) {
+        super(String.format("%s resource not found", className));
     }
 }
 
@@ -28,9 +28,9 @@ public class Preconditions {
         return resource;
     }
 
-    public static <T> T checkFound(final T resource) {
+    public static <T> T checkFound(final T resource, String className) {
         if (resource == null) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(resource, className);
         }
         return resource;
     }

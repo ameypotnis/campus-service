@@ -36,9 +36,9 @@ public class AttendanceController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void update(@PathVariable("date") String date, @PathVariable("standard") String standard, @PathVariable("branch") String branch, @RequestBody Student student) {
         Attendance attendance = attendanceRepository.findByDateAndStandardAndBranch(toDate(date), standard, branch);
-        Preconditions.checkNotNull(attendance, "Attendance");
+        Preconditions.checkFound(attendance, "Attendance");
         student = studentRepository.findByRollAndStandardAndBranch(student.getRoll(), student.getStandard(), student.getBranch());
-        Preconditions.checkNotNull(student, "Student");
+        Preconditions.checkFound(student, "Student");
         attendance.addStudent(student);
         attendanceRepository.save(attendance);
     }
@@ -47,7 +47,7 @@ public class AttendanceController {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Attendance find(@PathVariable("date") String date, @PathVariable("standard") String standard, @PathVariable("branch") String branch) {
         Attendance attendance = attendanceRepository.findByDateAndStandardAndBranch(toDate(date), standard, branch);
-        Preconditions.checkFound(attendance);
+        Preconditions.checkFound(attendance, "Attendance");
         return attendance;
     }
 

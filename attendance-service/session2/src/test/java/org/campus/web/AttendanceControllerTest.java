@@ -123,7 +123,7 @@ public class AttendanceControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student))
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -140,7 +140,7 @@ public class AttendanceControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student))
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -158,5 +158,17 @@ public class AttendanceControllerTest {
                 .andExpect(jsonPath("$.date").value("20160726"))
                 .andExpect(jsonPath("$.standard").value("BE"))
                 .andExpect(jsonPath("$.branch").value("CS"));
+    }
+
+    @Test
+    public void testFindAttendanceShouldThrowNotFoundIfDoesntExist() throws Exception {
+        //given
+        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        attendance.setId(1L);
+        given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
+                .willReturn(null);
+        //when then
+        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendance/20160726/BE/CS"))
+                .andExpect(status().isNotFound());
     }
 }
