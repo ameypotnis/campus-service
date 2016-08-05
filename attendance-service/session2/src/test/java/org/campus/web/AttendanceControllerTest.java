@@ -44,7 +44,7 @@ public class AttendanceControllerTest {
         given(this.attendanceRepository.save(attendance))
                 .willReturn(attendance);
         //when then
-        this.mvc.perform(post("/api/attendance")
+        this.mvc.perform(post("/api/attendances")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(attendance))
                 .accept(MediaType.APPLICATION_JSON))
@@ -62,7 +62,7 @@ public class AttendanceControllerTest {
                 .willReturn(attendance);
 
         //when then
-        this.mvc.perform(post("/api/attendance")
+        this.mvc.perform(post("/api/attendances")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(attendance))
                 .accept(MediaType.APPLICATION_JSON))
@@ -75,7 +75,7 @@ public class AttendanceControllerTest {
         Attendance attendance = new Attendance("20160726", null, "CS");
 
         //when then
-        this.mvc.perform(post("/api/attendance")
+        this.mvc.perform(post("/api/attendances")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(attendance))
                 .accept(MediaType.APPLICATION_JSON))
@@ -88,7 +88,7 @@ public class AttendanceControllerTest {
         Attendance attendance = new Attendance("20160726", "BE", null);
 
         //when then
-        this.mvc.perform(post("/api/attendance")
+        this.mvc.perform(post("/api/attendances")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(attendance))
                 .accept(MediaType.APPLICATION_JSON))
@@ -105,7 +105,7 @@ public class AttendanceControllerTest {
         given(this.studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS"))
                 .willReturn(student);
         //when then
-        this.mvc.perform(put("/api/attendance/20160726/BE/CS")
+        this.mvc.perform(put("/api/attendances/20160726/BE/CS")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student))
                 .accept(MediaType.APPLICATION_JSON))
@@ -119,7 +119,7 @@ public class AttendanceControllerTest {
         given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
                 .willReturn(null);
         //when then
-        this.mvc.perform(put("/api/attendance/20160726/BE/CS")
+        this.mvc.perform(put("/api/attendances/20160726/BE/CS")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student))
                 .accept(MediaType.APPLICATION_JSON))
@@ -136,7 +136,7 @@ public class AttendanceControllerTest {
         given(this.studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS"))
                 .willReturn(null);
         //when then
-        this.mvc.perform(put("/api/attendance/20160726/BE/CS")
+        this.mvc.perform(put("/api/attendances/20160726/BE/CS")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student))
                 .accept(MediaType.APPLICATION_JSON))
@@ -151,7 +151,7 @@ public class AttendanceControllerTest {
         given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
                 .willReturn(attendance);
         //when then
-        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendance/20160726/BE/CS"))
+        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendances/20160726/BE/CS"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id").value(1))
@@ -168,7 +168,7 @@ public class AttendanceControllerTest {
         given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
                 .willReturn(null);
         //when then
-        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendance/20160726/BE/CS"))
+        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendances/20160726/BE/CS"))
                 .andExpect(status().isNotFound());
     }
 }

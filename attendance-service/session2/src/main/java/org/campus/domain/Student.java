@@ -15,10 +15,8 @@ public class Student extends BaseEntity {
     private Integer roll;
     @Column(name = "CLASS", nullable = false)
     private String standard;
-
     @Column(name = "BRANCH", nullable = false)
     private String branch;
-
     @Column(name = "NAME", nullable = false)
     private String name;
 

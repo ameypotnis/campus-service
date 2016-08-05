@@ -16,7 +16,7 @@ import static org.campus.web.helper.Preconditions.checkNotNull;
  * Created by amey on 3/8/16.
  */
 @RestController
-@RequestMapping("/api/attendance")
+@RequestMapping("/api/attendances")
 public class AttendanceController {
 
     @Autowired private AttendanceRepository attendanceRepository;
