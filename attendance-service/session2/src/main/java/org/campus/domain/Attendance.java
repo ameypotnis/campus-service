@@ -28,11 +28,8 @@ public class Attendance extends BaseEntity {
     @Column(name = "BRANCH", nullable = false)
     private String branch;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "ATTENDANCE_STUDENT",
-            joinColumns = @JoinColumn(name = "ATTENDANCE_ID", referencedColumnName = "ID"),
-            inverseJoinColumns = @JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID"))
+    @ManyToMany
+    @JoinTable(name="ATTENDANCE_STUDENT")
     private List<Student> students;
 
     public Attendance() {}

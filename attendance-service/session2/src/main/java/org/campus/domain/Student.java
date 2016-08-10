@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by amey on 26/7/16.
@@ -19,6 +22,8 @@ public class Student extends BaseEntity {
     private String branch;
     @Column(name = "NAME", nullable = false)
     private String name;
+    @ManyToMany(mappedBy="students")
+    private List<Attendance> attendances;
 
     public Student() {}
 
@@ -33,5 +38,12 @@ public class Student extends BaseEntity {
         this.standard = standard;
         this.branch = branch;
         this.roll = roll;
+    }
+
+    public void addAttendance(Attendance attendance) {
+        if (attendances == null) {
+            attendances = new ArrayList<Attendance>();
+        }
+        attendances.add(attendance);
     }
 }
