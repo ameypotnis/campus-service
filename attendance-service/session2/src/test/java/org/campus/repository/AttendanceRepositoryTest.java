@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.campus.domain.BaseEntity.toDate;
 
@@ -34,20 +32,20 @@ public class AttendanceRepositoryTest {
         studentRepository.save(avdhut);
 
         //when
-        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        Attendance attendance = new Attendance("20160726", "BE", "CS", "Distributed Systems");
         attendance.addStudent(indrajeet);
         attendance.addStudent(avdhut);
         indrajeet.addAttendance(attendance);
         avdhut.addAttendance(attendance);
         repository.save(attendance);
 
-        attendance = new Attendance("20160727", "BE", "CS");
+        attendance = new Attendance("20160727", "BE", "CS", "Distributed Systems");
         attendance.addStudent(indrajeet);
         indrajeet.addAttendance(attendance);
         repository.save(attendance);
 
         //then
-        Attendance actual = repository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS");
+        Attendance actual = repository.findByDateAndStandardAndBranchAndSubject(toDate("20160726"), "BE", "CS", "Distributed Systems");
         assertThat(actual.getId()).isEqualTo(1L);
         assertThat(actual.getDate()).isEqualTo(toDate("20160726"));
         assertThat(actual.getStandard()).isEqualTo("BE");

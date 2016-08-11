@@ -29,13 +29,14 @@ public class AttendanceController {
         checkNotNull(attendance.getDate(), "Date");
         checkNotNull(attendance.getStandard(), "Standard");
         checkNotNull(attendance.getBranch(), "Branch");
+        checkNotNull(attendance.getSubject(), "Subject");
         return attendanceRepository.save(attendance);
     }
 
-    @RequestMapping(value = "{date}/{standard}/{branch}", method = RequestMethod.PUT)
+    @RequestMapping(value = "{date}/{standard}/{branch}/{subject}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void update(@PathVariable("date") String date, @PathVariable("standard") String standard, @PathVariable("branch") String branch, @RequestBody Student student) {
-        Attendance attendance = attendanceRepository.findByDateAndStandardAndBranch(toDate(date), standard, branch);
+    public void update(@PathVariable("date") String date, @PathVariable("standard") String standard, @PathVariable("branch") String branch, @PathVariable("subject") String subject, @RequestBody Student student) {
+        Attendance attendance = attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate(date), standard, branch, subject);
         Preconditions.checkFound(attendance, "Attendance");
         student = studentRepository.findByRollAndStandardAndBranch(student.getRoll(), student.getStandard(), student.getBranch());
         Preconditions.checkFound(student, "Student");
@@ -43,10 +44,10 @@ public class AttendanceController {
         attendanceRepository.save(attendance);
     }
 
-    @RequestMapping(value = "{date}/{standard}/{branch}", method = RequestMethod.GET)
+    @RequestMapping(value = "{date}/{standard}/{branch}/{subject}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Attendance find(@PathVariable("date") String date, @PathVariable("standard") String standard, @PathVariable("branch") String branch) {
-        Attendance attendance = attendanceRepository.findByDateAndStandardAndBranch(toDate(date), standard, branch);
+    public @ResponseBody Attendance find(@PathVariable("date") String date, @PathVariable("standard") String standard, @PathVariable("branch") String branch, @PathVariable("subject") String subject) {
+        Attendance attendance = attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate(date), standard, branch, subject);
         Preconditions.checkFound(attendance, "Attendance");
         return attendance;
     }

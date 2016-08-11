@@ -11,5 +11,5 @@ import java.util.Date;
  */
 
 public interface AttendanceRepository extends CrudRepository<Attendance, Long> {
-    Attendance findByDateAndStandardAndBranch(Date date, String standard, String branch);
+    Attendance findByDateAndStandardAndBranchAndSubject(Date date, String standard, String branch, String subject);
 }

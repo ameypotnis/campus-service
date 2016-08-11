@@ -29,16 +29,20 @@ public class Attendance extends BaseEntity {
     @Column(name = "BRANCH", nullable = false)
     private String branch;
 
+    @Column(name = "SUBJECT", nullable = false)
+    private String subject;
+
     @ManyToMany
     @JoinTable(name="ATTENDANCE_STUDENT")
     private List<Student> students;
 
     public Attendance() {}
 
-    public Attendance(String date, String standard, String branch) {
+    public Attendance(String date, String standard, String branch, String subject) {
         this.date = toDate(date);
         this.standard = standard;
         this.branch = branch;
+        this.subject = subject;
     }
 
     public void addStudent(Student student) {

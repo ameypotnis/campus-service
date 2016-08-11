@@ -40,7 +40,7 @@ public class AttendanceControllerTest {
     @Test
     public void testCreateAttendance() throws Exception {
         //given
-        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        Attendance attendance = new Attendance("20160726", "BE", "CS", "DistributedSystems");
         given(this.attendanceRepository.save(attendance))
                 .willReturn(attendance);
         //when then
@@ -57,7 +57,7 @@ public class AttendanceControllerTest {
     @Test
     public void testCreateAttendanceShouldFailForInvalidDateRequest() throws Exception {
         //given
-        Attendance attendance = new Attendance(null, "BE", "CS");
+        Attendance attendance = new Attendance(null, "BE", "CS", "DistributedSystems");
         given(this.attendanceRepository.save(attendance))
                 .willReturn(attendance);
 
@@ -72,7 +72,7 @@ public class AttendanceControllerTest {
     @Test
     public void testCreateAttendanceShouldFailForInvalidStandardRequest() throws Exception {
         //given
-        Attendance attendance = new Attendance("20160726", null, "CS");
+        Attendance attendance = new Attendance("20160726", null, "CS", "DistributedSystems");
 
         //when then
         this.mvc.perform(post("/api/attendances")
@@ -85,7 +85,7 @@ public class AttendanceControllerTest {
     @Test
     public void testCreateAttendanceShouldFailForInvalidBranchRequest() throws Exception {
         //given
-        Attendance attendance = new Attendance("20160726", "BE", null);
+        Attendance attendance = new Attendance("20160726", "BE", null, "DistributedSystems");
 
         //when then
         this.mvc.perform(post("/api/attendances")
@@ -98,14 +98,14 @@ public class AttendanceControllerTest {
     @Test
     public void testAddStudentToAttendance() throws Exception {
         //given
-        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        Attendance attendance = new Attendance("20160726", "BE", "CS", "DistributedSystems");
         Student student = new Student("BE", "CS", 1);
-        given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
+        given(this.attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate("20160726"), "BE", "CS", "DistributedSystems"))
                 .willReturn(attendance);
         given(this.studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS"))
                 .willReturn(student);
         //when then
-        this.mvc.perform(put("/api/attendances/20160726/BE/CS")
+        this.mvc.perform(put("/api/attendances/20160726/BE/CS/DistributedSystems")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student))
                 .accept(MediaType.APPLICATION_JSON))
@@ -116,7 +116,7 @@ public class AttendanceControllerTest {
     public void testAddStudentToAttendanceShouldFailForInvalidAttendance() throws Exception {
         //given
         Student student = new Student("BE", "CS", 1);
-        given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
+        given(this.attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate("20160726"), "BE", "CS", "DistributedSystems"))
                 .willReturn(null);
         //when then
         this.mvc.perform(put("/api/attendances/20160726/BE/CS")
@@ -129,9 +129,9 @@ public class AttendanceControllerTest {
     @Test
     public void testAddStudentToAttendanceShouldFailForInvalidStudent() throws Exception {
         //given
-        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        Attendance attendance = new Attendance("20160726", "BE", "CS", "DistributedSystems");
         Student student = new Student("BE", "CS", 1);
-        given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
+        given(this.attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate("20160726"), "BE", "CS", "DistributedSystems"))
                 .willReturn(attendance);
         given(this.studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS"))
                 .willReturn(null);
@@ -146,12 +146,12 @@ public class AttendanceControllerTest {
     @Test
     public void testFindAttendance() throws Exception {
         //given
-        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        Attendance attendance = new Attendance("20160726", "BE", "CS", "DistributedSystems");
         attendance.setId(1L);
-        given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
+        given(this.attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate("20160726"), "BE", "CS", "DistributedSystems"))
                 .willReturn(attendance);
         //when then
-        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendances/20160726/BE/CS"))
+        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendances/20160726/BE/CS/DistributedSystems"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id").value(1))
@@ -163,9 +163,9 @@ public class AttendanceControllerTest {
     @Test
     public void testFindAttendanceShouldThrowNotFoundIfDoesntExist() throws Exception {
         //given
-        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        Attendance attendance = new Attendance("20160726", "BE", "CS", "DistributedSystems");
         attendance.setId(1L);
-        given(this.attendanceRepository.findByDateAndStandardAndBranch(toDate("20160726"), "BE", "CS"))
+        given(this.attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate("20160726"), "BE", "CS", "DistributedSystems"))
                 .willReturn(null);
         //when then
         this.mvc.perform(MockMvcRequestBuilders.get("/api/attendances/20160726/BE/CS"))

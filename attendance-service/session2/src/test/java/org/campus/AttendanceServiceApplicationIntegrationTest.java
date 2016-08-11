@@ -59,7 +59,7 @@ public class AttendanceServiceApplicationIntegrationTest {
                 .andExpect(jsonPath("$.branch").value("CS"));
 
         //create attendance
-        Attendance attendance = new Attendance("20160726", "BE", "CS");
+        Attendance attendance = new Attendance("20160726", "BE", "CS", "DistributedSystems");
         this.mvc.perform(post("/api/attendances")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(attendance))
@@ -70,14 +70,14 @@ public class AttendanceServiceApplicationIntegrationTest {
                 .andExpect(status().isCreated());
 
         //add student
-        this.mvc.perform(put("/api/attendances/20160726/BE/CS")
+        this.mvc.perform(put("/api/attendances/20160726/BE/CS/DistributedSystems")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isAccepted());
 
         //find attendance
-        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendances/20160726/BE/CS"))
+        this.mvc.perform(MockMvcRequestBuilders.get("/api/attendances/20160726/BE/CS/DistributedSystems"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.id").value(1))
