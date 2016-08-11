@@ -1,5 +1,6 @@
 package org.campus.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
@@ -45,5 +46,10 @@ public class Attendance extends BaseEntity {
             students = new ArrayList<>();
         }
         students.add(student);
+    }
+
+    @JsonIgnore
+    public List<Student> getStudents() {
+        return students;
     }
 }

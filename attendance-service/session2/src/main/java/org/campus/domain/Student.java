@@ -1,5 +1,6 @@
 package org.campus.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -45,5 +46,10 @@ public class Student extends BaseEntity {
             attendances = new ArrayList<Attendance>();
         }
         attendances.add(attendance);
+    }
+
+    @JsonIgnore
+    public List<Attendance> getAttendances() {
+        return attendances;
     }
 }

@@ -83,10 +83,10 @@ public class AttendanceServiceApplicationIntegrationTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.date").value("20160726"))
                 .andExpect(jsonPath("$.standard").value("BE"))
-                .andExpect(jsonPath("$.branch").value("CS"))
-                .andExpect(jsonPath("$.students[0].roll").value(1))
-                .andExpect(jsonPath("$.students[0].name").value("Amey"));
-        ;
+                .andExpect(jsonPath("$.branch").value("CS"));
+                //decide student structure on demand
+//                .andExpect(jsonPath("$.students[0].roll").value(1))
+//                .andExpect(jsonPath("$.students[0].name").value("Amey"));
     }
 
 }
