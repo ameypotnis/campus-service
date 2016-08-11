@@ -1,4 +1,4 @@
-campus-service
+campus-service [![Build Status](https://travis-ci.org/ameypotnis/campus-service.svg?branch=master)](https://travis-ci.org/ameypotnis/campus-service)
 =============
 
 Software development
