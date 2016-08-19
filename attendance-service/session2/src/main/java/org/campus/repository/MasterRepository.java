@@ -3,6 +3,7 @@ package org.campus.repository;
 import org.campus.domain.Master;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**

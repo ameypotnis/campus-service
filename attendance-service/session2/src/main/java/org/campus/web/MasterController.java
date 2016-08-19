@@ -22,10 +22,15 @@ public class MasterController {
         return (List<Master>)masterRepository.save(masters) ;
     }
 
-    @RequestMapping(value = "/standard", method = RequestMethod.GET)
-    List<Master> findAll() {
-        List<Master> masterList=(ArrayList)masterRepository.findByType("standard");
-        return masterList;
+    @RequestMapping(value = "/{type}", method = RequestMethod.GET)
+    ArrayList<String> findAll(@PathVariable("type") String type) {
+        List<Master> typeList=masterRepository.findByType(type);
+        ArrayList<String> arrayList=new ArrayList<>();
+        for(int i=0;i<typeList.size();i++) {
+            arrayList.add(typeList.get(i).getValue());
+        }
+
+        return arrayList;
     }
 
 }
