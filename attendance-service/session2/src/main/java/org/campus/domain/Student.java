@@ -7,7 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by amey on 26/7/16.
@@ -51,5 +54,27 @@ public class Student extends BaseEntity {
     @JsonIgnore
     public List<Attendance> getAttendances() {
         return attendances;
+    }
+
+    public List<String> findAttendanceFor(String yearMonth, String subject) {
+        int year = Integer.parseInt(yearMonth.substring(0, 4));
+        int month = Integer.parseInt(yearMonth.substring(4, 6)) -1;
+        Date monthStartDate = createDateFor(year, month, false);
+        Date monthEndDate = createDateFor(year, month, true);
+        return attendances.stream()
+                .filter(a -> a.getSubject().equals(subject) && monthStartDate.before(a.getDate()) && monthEndDate.after(a.getDate()))
+                .map(Attendance::getDateAsString)
+                .collect(Collectors.toList());
+    }
+
+    private Date createDateFor(int year, int month, boolean last) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        if (last) {
+            cal.set(Calendar.DATE, cal.getActualMaximum(Calendar.DATE));
+        }
+        return cal.getTime();
     }
 }

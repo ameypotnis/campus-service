@@ -56,4 +56,9 @@ public class Attendance extends BaseEntity {
     public List<Student> getStudents() {
         return students;
     }
+
+    @JsonIgnore
+    public String getDateAsString() {
+        return toString(date);
+    }
 }
