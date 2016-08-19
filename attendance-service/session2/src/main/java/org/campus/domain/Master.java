@@ -9,11 +9,8 @@ import javax.persistence.*;
  */
 @Entity
 @Data
-public class Master {
+public class Master extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
     @Column(name = "TYPE",nullable = false)
     private String type;
 
@@ -21,4 +18,9 @@ public class Master {
     private String value;
 
     public Master() {}
+
+    public Master(String type, String value) {
+        this.type = type;
+        this.value = value;
+    }
 }
