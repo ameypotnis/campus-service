@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by amey on 2/8/16.
@@ -38,5 +39,9 @@ public class BaseEntity {
         if (date == null) return null;
         DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
         return formatter.format(date);
+    }
+
+    public static String generateIdentifier() {
+        return UUID.randomUUID().toString().replaceAll("-", "").substring(0,6);
     }
 }
