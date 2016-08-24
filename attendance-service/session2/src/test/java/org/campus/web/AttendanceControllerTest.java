@@ -87,7 +87,7 @@ public class AttendanceControllerTest extends ControllerBaseTest {
         Student student = new Student("BE", "CS", 1);
         given(this.attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate("20160726"), "BE", "CS", "DistributedSystems"))
                 .willReturn(attendance);
-        given(this.studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS"))
+        given(this.studentRepository.findByIdentifierAndStandardAndBranch(1, "BE", "CS"))
                 .willReturn(student);
         //when then
         this.mvc.perform(put("/api/attendances/20160726/BE/CS/DistributedSystems")
@@ -118,7 +118,7 @@ public class AttendanceControllerTest extends ControllerBaseTest {
         Student student = new Student("BE", "CS", 1);
         given(this.attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate("20160726"), "BE", "CS", "DistributedSystems"))
                 .willReturn(attendance);
-        given(this.studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS"))
+        given(this.studentRepository.findByIdentifierAndStandardAndBranch(1, "BE", "CS"))
                 .willReturn(null);
         //when then
         this.mvc.perform(put("/api/attendances/20160726/BE/CS")

@@ -46,14 +46,14 @@ public class AttendanceServiceApplicationIntegrationTest {
                 .andExpect(jsonPath("$.name").value("Amey"))
                 .andExpect(jsonPath("$.standard").value("BE"))
                 .andExpect(jsonPath("$.branch").value("CS"))
-                .andExpect(jsonPath("$.roll").value(1))
+                .andExpect(jsonPath("$.identifier").value(1))
                 .andExpect(status().isCreated());
 
         //get student
         this.mvc.perform(MockMvcRequestBuilders.get("/api/students/BE/CS/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.roll").value(1))
+                .andExpect(jsonPath("$.identifier").value(1))
                 .andExpect(jsonPath("$.name").value("Amey"))
                 .andExpect(jsonPath("$.standard").value("BE"))
                 .andExpect(jsonPath("$.branch").value("CS"));
@@ -85,7 +85,7 @@ public class AttendanceServiceApplicationIntegrationTest {
                 .andExpect(jsonPath("$.standard").value("BE"))
                 .andExpect(jsonPath("$.branch").value("CS"));
                 //decide student structure on demand
-//                .andExpect(jsonPath("$.students[0].roll").value(1))
+//                .andExpect(jsonPath("$.students[0].identifier").value(1))
 //                .andExpect(jsonPath("$.students[0].name").value("Amey"));
     }
 

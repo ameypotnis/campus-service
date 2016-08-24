@@ -38,7 +38,7 @@ public class AttendanceController {
     public void update(@PathVariable("date") String date, @PathVariable("standard") String standard, @PathVariable("branch") String branch, @PathVariable("subject") String subject, @RequestBody Student student) {
         Attendance attendance = attendanceRepository.findByDateAndStandardAndBranchAndSubject(toDate(date), standard, branch, subject);
         Preconditions.checkFound(attendance, "Attendance");
-        student = studentRepository.findByRollAndStandardAndBranch(student.getRoll(), student.getStandard(), student.getBranch());
+        student = studentRepository.findByIdentifierAndStandardAndBranch(student.getIdentifier(), student.getStandard(), student.getBranch());
         Preconditions.checkFound(student, "Student");
         attendance.addStudent(student);
         attendanceRepository.save(attendance);

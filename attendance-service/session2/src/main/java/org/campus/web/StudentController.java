@@ -1,7 +1,6 @@
 package org.campus.web;
 
 import org.campus.domain.Student;
-import org.campus.repository.AttendanceRepository;
 import org.campus.repository.StudentRepository;
 import org.campus.web.helper.Preconditions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,16 +23,16 @@ public class StudentController {
     @ResponseBody
     public Student create(@RequestBody Student student) {
         checkNotNull(student.getName(), "Name");
-        checkNotNull(student.getRoll(), "Roll");
+        checkNotNull(student.getIdentifier(), "Roll");
         checkNotNull(student.getStandard(), "Standard");
         checkNotNull(student.getBranch(), "Branch");
         return studentRepository.save(student);
     }
 
-    @RequestMapping(value = "{standard}/{branch}/{roll}", method = RequestMethod.GET)
+    @RequestMapping(value = "{standard}/{branch}/{identifier}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Student find(@PathVariable("standard") String standard, @PathVariable("branch") String branch, @PathVariable("roll") Integer roll) {
-        Student student = studentRepository.findByRollAndStandardAndBranch(roll, standard, branch);
+    public @ResponseBody Student find(@PathVariable("standard") String standard, @PathVariable("branch") String branch, @PathVariable("identifier") Integer roll) {
+        Student student = studentRepository.findByIdentifierAndStandardAndBranch(roll, standard, branch);
         Preconditions.checkFound(student, "Student");
         return student;
     }

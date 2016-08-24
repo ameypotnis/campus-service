@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @Data
 @Entity
 public class Student extends BaseEntity {
-    @Column(name = "ROLL", nullable = false)
-    private Integer roll;
+    @Column(name = "UNIQUE_ID", nullable = false)
+    private Integer identifier;
     @Column(name = "CLASS", nullable = false)
     private String standard;
     @Column(name = "BRANCH", nullable = false)
@@ -31,17 +31,17 @@ public class Student extends BaseEntity {
 
     public Student() {}
 
-    public Student(String standard, String branch, Integer roll) {
+    public Student(String standard, String branch, Integer identifier) {
         this.standard = standard;
         this.branch = branch;
-        this.roll = roll;
+        this.identifier = identifier;
     }
 
-    public Student(String name, String standard, String branch, Integer roll) {
+    public Student(String name, String standard, String branch, Integer identifier) {
         this.name = name;
         this.standard = standard;
         this.branch = branch;
-        this.roll = roll;
+        this.identifier = identifier;
     }
 
     public void addAttendance(Attendance attendance) {

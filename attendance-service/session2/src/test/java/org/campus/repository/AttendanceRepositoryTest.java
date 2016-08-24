@@ -55,10 +55,10 @@ public class AttendanceRepositoryTest {
         assertThat(actual.getStudents().get(0).getName()).isEqualTo("Indrajeet");
         assertThat(actual.getStudents().get(1).getName()).isEqualTo("Avdhut");
 
-        indrajeet = studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS");
+        indrajeet = studentRepository.findByIdentifierAndStandardAndBranch(1, "BE", "CS");
         assertThat(indrajeet.getName()).isEqualTo("Indrajeet");
         assertThat(indrajeet.getAttendances().size()).isEqualTo(2);
-        avdhut = studentRepository.findByRollAndStandardAndBranch(2, "BE", "CS");
+        avdhut = studentRepository.findByIdentifierAndStandardAndBranch(2, "BE", "CS");
         assertThat(avdhut.getName()).isEqualTo("Avdhut");
         assertThat(avdhut.getAttendances().size()).isEqualTo(1);
     }

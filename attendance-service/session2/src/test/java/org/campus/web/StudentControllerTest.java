@@ -33,7 +33,7 @@ public class StudentControllerTest extends ControllerBaseTest {
                 .andExpect(jsonPath("$.name").value("Amey"))
                 .andExpect(jsonPath("$.standard").value("BE"))
                 .andExpect(jsonPath("$.branch").value("CS"))
-                .andExpect(jsonPath("$.roll").value(1))
+                .andExpect(jsonPath("$.identifier").value(1))
                 .andExpect(status().isCreated());
     }
 
@@ -97,13 +97,13 @@ public class StudentControllerTest extends ControllerBaseTest {
     public void testFindStudent() throws Exception {
         //given
         Student student = new Student("Amey", "BE", "CS", 1);
-        given(this.studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS"))
+        given(this.studentRepository.findByIdentifierAndStandardAndBranch(1, "BE", "CS"))
                 .willReturn(student);
         //when then
         this.mvc.perform(MockMvcRequestBuilders.get("/api/students/BE/CS/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$.roll").value(1))
+                .andExpect(jsonPath("$.identifier").value(1))
                 .andExpect(jsonPath("$.name").value("Amey"))
                 .andExpect(jsonPath("$.standard").value("BE"))
                 .andExpect(jsonPath("$.branch").value("CS"));
@@ -112,7 +112,7 @@ public class StudentControllerTest extends ControllerBaseTest {
     @Test
     public void testFindStudentShouldThrowNotFoundIfDoesntExist() throws Exception {
         //given
-        given(this.studentRepository.findByRollAndStandardAndBranch(1, "BE", "CS"))
+        given(this.studentRepository.findByIdentifierAndStandardAndBranch(1, "BE", "CS"))
                 .willReturn(null);
         //when then
         this.mvc.perform(MockMvcRequestBuilders.get("/api/students/BE/CS/1"))
