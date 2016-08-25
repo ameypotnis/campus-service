@@ -50,10 +50,10 @@ public class StudentTest {
             add(new Attendance("20160904", "BE", "CS", distributedSystem));
             add(new Attendance("20160905", "BE", "CS", distributedSystem));
         }});
-        Map<String, Object> actual = student.isDefaulterFor("201609", distributedSystem);
-        assertThat(actual.get("total")).isEqualTo(30);
+        Map<String, Object> actual = student.isDefaulterFor("201609", distributedSystem, 20);
+        assertThat(actual.get("total")).isEqualTo(20);
         assertThat(actual.get("present-days")).isEqualTo(2);
-        assertThat(actual.get("absent-days")).isEqualTo(28);
+        assertThat(actual.get("absent-days")).isEqualTo(18);
         assertThat(actual.get("isDefaulter")).isEqualTo(true);
     }
 

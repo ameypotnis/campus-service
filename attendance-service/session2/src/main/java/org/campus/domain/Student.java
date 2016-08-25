@@ -64,12 +64,12 @@ public class Student extends BaseEntity {
                 .collect(Collectors.toList());
     }
 
-    public Map<String, Object> isDefaulterFor(String yearMonth, String subject) {
+    public Map<String, Object> isDefaulterFor(String yearMonth, String subject, Integer workingDays) {
         List<String> list = findAttendanceFor(yearMonth, subject);
         HashMap<String, Object> attendanceMap = new HashMap<>();
-        attendanceMap.put("total", 30);
+        attendanceMap.put("total", workingDays);
         attendanceMap.put("present-days", list.size());
-        attendanceMap.put("absent-days", 30 - list.size());
+        attendanceMap.put("absent-days", workingDays - list.size());
         if (!list.isEmpty() && list.size() < 3) {
             attendanceMap.put("isDefaulter", true);
 
