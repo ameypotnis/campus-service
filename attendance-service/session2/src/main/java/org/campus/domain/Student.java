@@ -6,10 +6,7 @@ import lombok.Data;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -65,6 +62,19 @@ public class Student extends BaseEntity {
                 .filter(a -> a.getSubject().equals(subject) && monthStartDate.before(a.getDate()) && monthEndDate.after(a.getDate()))
                 .map(Attendance::getDateAsString)
                 .collect(Collectors.toList());
+    }
+
+    public Map<String, Object> isDefaulterFor(String yearMonth, String subject) {
+        List<String> list = findAttendanceFor(yearMonth, subject);
+        HashMap<String, Object> attendanceMap = new HashMap<>();
+        attendanceMap.put("total", 30);
+        attendanceMap.put("present-days", list.size());
+        attendanceMap.put("absent-days", 30 - list.size());
+        if (!list.isEmpty() && list.size() < 3) {
+            attendanceMap.put("isDefaulter", true);
+
+        }
+        return attendanceMap;
     }
 
     private Date createDateFor(int year, int month, boolean last) {
