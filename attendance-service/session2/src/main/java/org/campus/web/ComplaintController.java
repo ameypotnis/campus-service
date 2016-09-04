@@ -20,12 +20,17 @@ public class ComplaintController {
     @Autowired private ComplaintRepository complaintRepository;
     @Autowired private StudentRepository studentRepository;
 
+    /*
+    URL:http://localhost:9988/api/complaint
+    Payload : {"title":"no staff","description":"there is no staff for blah blah","status":"OPEN"}
+    */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public Complaint create(@RequestBody Complaint complaint){
         return complaintRepository.save(complaint);
     }
 
+    //URL: http://localhost:9988/api/complaint/2/3 [NOTE: 3 is Id of Compliment]
     @RequestMapping(value = "/{roll}/{id}",method = RequestMethod.PUT)
     public void addComplaint(@PathVariable("roll") Integer roll, @PathVariable("id") Long id){
         Student student=studentRepository.findByRoll(roll);

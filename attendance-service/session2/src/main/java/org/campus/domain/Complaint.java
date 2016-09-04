@@ -15,7 +15,7 @@ public class Complaint {
     private long Id;
 
     @Column(name = "DESCRIPTION")
-    private String desciption;
+    private String description;
 
     @Column(name = "TITLE")
     private String title;
