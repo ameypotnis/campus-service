@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.campus.web.helper.Preconditions.checkNotNull;
 
 /**
@@ -36,6 +38,14 @@ public class StudentController {
         Student student = studentRepository.findByRollAndStandardAndBranch(roll, standard, branch);
         Preconditions.checkFound(student, "Student");
         return student;
+    }
+
+    @RequestMapping(value = "{roll}/attendance/{standard}/{branch}/{date}/{subject}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<String> findAttendanceFor(@PathVariable("roll") Integer roll,@PathVariable("standard") String standard, @PathVariable("branch") String branch, @PathVariable("date") String date, @PathVariable("subject") String subject) {
+        Student student = studentRepository.findByRoll(roll);
+        List<String> stringList=student.findAttendanceFor(subject,date);
+        return stringList;
     }
 
 }

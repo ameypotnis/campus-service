@@ -17,7 +17,7 @@ public class Master {
     @Column(name = "TYPE",nullable = false)
     private String type;
 
-    @Column(name = "VALUE",nullable = false)
+    @Column(name = "VALUE",nullable = false, unique = true)
     private String value;
 
     public Master() {}

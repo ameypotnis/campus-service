@@ -1,6 +1,7 @@
 package org.campus.repository;
 
 import org.campus.domain.Attendance;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Date;

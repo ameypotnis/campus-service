@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface MasterRepository extends CrudRepository<Master, Long> {
     List<Master> findByType(String type);
+    Master findByTypeAndValue(String type, String value);
+
 }
