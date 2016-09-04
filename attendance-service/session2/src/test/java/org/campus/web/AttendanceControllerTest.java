@@ -1,18 +1,12 @@
 package org.campus.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.campus.domain.Attendance;
 import org.campus.domain.Student;
-import org.campus.repository.AttendanceRepository;
-import org.campus.repository.StudentRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.campus.domain.BaseEntity.toDate;
@@ -26,16 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @WebMvcTest(AttendanceController.class)
-public class AttendanceControllerTest {
-
-    @Autowired
-    private MockMvc mvc;
-    @MockBean
-    private AttendanceRepository attendanceRepository;
-    @MockBean
-    private StudentRepository studentRepository;
-    @Autowired
-    private ObjectMapper objectMapper;
+public class AttendanceControllerTest extends ControllerBaseTest {
 
     @Test
     public void testCreateAttendance() throws Exception {
