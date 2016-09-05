@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Data
 public class Complaint {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
@@ -20,10 +21,21 @@ public class Complaint {
     @Column(name = "TITLE")
     private String title;
 
+
     private enum Status {OPEN,CLOSED,RESOLVED}
 
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public Complaint() {}
+    public Complaint(String description, String title,String status) {
+        this.description=description;
+        this.title=title;
+        this.status=Status.valueOf(status);
+    }
+
+    public Status getStatus(String status) {
+        return Status.valueOf(status);
+    }
+
 }
