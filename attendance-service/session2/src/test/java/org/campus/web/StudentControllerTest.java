@@ -33,6 +33,7 @@ public class StudentControllerTest extends ControllerBaseTest {
                 .andExpect(jsonPath("$.name").value("Amey"))
                 .andExpect(jsonPath("$.standard").value("BE"))
                 .andExpect(jsonPath("$.branch").value("CS"))
+
                 .andExpect(jsonPath("$.roll").value(1))
                 .andExpect(status().isCreated());
     }

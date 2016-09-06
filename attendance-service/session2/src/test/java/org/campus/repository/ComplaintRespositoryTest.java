@@ -22,13 +22,14 @@ public class ComplaintRespositoryTest {
 
     @Test
     public void testCreateAndSave() {
-        Complaint complaint=new Complaint("No staff for teaching XYZ","No staff","OPEN");
+        Complaint complaint=new Complaint("No staff for teaching XYZ","No staff","OPEN","Managment");
         complaintRepository.save(complaint);
 
         Complaint actual=complaintRepository.findOne(1L);
         assertThat(actual.getDescription().equals("No staff for teaching XYZ"));
         assertThat(actual.getTitle().equals("No staff"));
         assertThat(complaint.getStatus("OPEN") == actual.getStatus());
+        assertThat(actual.getResponsible().equals("Managment"));
     }
 
 }

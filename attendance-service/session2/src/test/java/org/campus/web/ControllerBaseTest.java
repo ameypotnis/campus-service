@@ -2,6 +2,7 @@ package org.campus.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.campus.repository.AttendanceRepository;
+import org.campus.repository.ComplaintRepository;
 import org.campus.repository.MasterRepository;
 import org.campus.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class ControllerBaseTest {
     protected MasterRepository masterRepository;
     @MockBean
     protected StudentRepository studentRepository;
+    @MockBean
+    protected ComplaintRepository complaintRepository;
     @Autowired
     protected ObjectMapper objectMapper;
 }
