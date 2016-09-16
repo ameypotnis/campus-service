@@ -8,3 +8,5 @@ Software development
 
 * Version control systems basics (How to use git) - http://rogerdudler.github.io/git-guide/
 * Build tool (Gradle) - http://javabeat.net/gradle-tutorial/
+
+comment by shital patil
