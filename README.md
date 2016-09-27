@@ -1,4 +1,4 @@
-campus-service [![Build Status](https://travis-ci.org/ameypotnis/campus-service.svg?branch=master)](https://travis-ci.org/ameypotnis/campus-service)
+campus-service [![Build Status](https://travis-ci.org/ameypotnis/campus-service.svg?branch=master)](https://travis-ci.org/ameypotnis/campus-service) [![Coverage Status](https://coveralls.io/repos/github/ameypotnis/campus-service/badge.svg?branch=master)](https://coveralls.io/github/ameypotnis/campus-service?branch=master)
 =============
 
 Software development
